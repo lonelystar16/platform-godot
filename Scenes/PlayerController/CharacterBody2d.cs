@@ -1,0 +1,43 @@
+using Godot;
+using System;
+
+public partial class CharacterBody2d : CharacterBody2D
+{
+
+	public float MaxSpeed = 200.0f;
+	public float Speed = 100.0f;
+	public float JumpVelocity = -400.0f;
+
+	public override void _PhysicsProcess(double delta)
+	{
+		Vector2 velocity = Velocity;
+
+		// Add the gravity.
+		if (!IsOnFloor())
+		{
+			velocity += GetGravity() * (float)delta;
+		}
+
+		// Handle Jump.
+		if (Input.IsActionJustPressed("saltar") && IsOnFloor())
+		{
+			velocity.Y = JumpVelocity;
+		}
+
+		// Get the input direction and handle the movement/deceleration.
+		// As good practice, you should replace UI actions with custom gameplay actions.
+		Vector2 direction = Input.GetVector("mover_izquierda", "mover_derecha", "mover_abajo", "mover_arriba");
+		if (direction != Vector2.Zero)
+		{
+			velocity.X = direction.X * Speed;
+			
+		}
+		else
+		{
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+		}
+
+		Velocity = velocity;
+		MoveAndSlide();
+	}
+}

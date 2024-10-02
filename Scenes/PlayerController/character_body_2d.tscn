@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0vxl25a33etl"]
+
+[ext_resource type="Script" path="res://Scenes/PlayerController/CharacterBody2d.cs" id="1_ley87"]
+[ext_resource type="Texture2D" uid="uid://5iaseh0u5nik" path="res://Assets/tilemap-characters_packed.png" id="1_rdtbl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ecblt"]
+size = Vector2(16, 20)
+
+[node name="CharacterController" type="CharacterBody2D"]
+position = Vector2(301, 158)
+script = ExtResource("1_ley87")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_rdtbl")
+hframes = 9
+vframes = 3
+
+[node name="World_Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_ecblt")
